@@ -54,5 +54,8 @@ alias conadd="config add -u"
 alias concommit="config commit -m"
 alias conpush="config push"
 alias nc="cd ~/.config/nvim/lua/xrhahelry"
+alias crun="cargo run"
+alias cbuild="cargo build"
+alias ccheck="cargo check"
 
 starship init fish | source

@@ -4,7 +4,7 @@ return {
         require('notify').setup {
             render = "compact",
             stages = "slide",
-            top_down = false,
+            top_down = true,
             timeout = 2300,
         }
     end

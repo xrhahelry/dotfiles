@@ -51,7 +51,7 @@ alias push="git push"
 alias commit="git commit -m"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias conadd="config add -u"
-alias concommit="config  commit -m"
+alias concommit="config commit -m"
 alias conpush="config push"
 alias nc="cd ~/.config/nvim/lua/xrhahelry"
 

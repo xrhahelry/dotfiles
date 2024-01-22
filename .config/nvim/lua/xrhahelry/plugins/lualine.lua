@@ -10,9 +10,11 @@ return {
                 disabled_filetypes = {
                     statusline = {
                         'NvimTree',
+                        'oil'
                     },
                     winbar = {
                         'NvimTree',
+                        'oil'
                     },
                     NvimTree = {},
                 },
@@ -59,54 +61,6 @@ return {
                 }},
                 lualine_x = {'location'},
             },
-            winbar = {
-                lualine_a = {},
-                lualine_b = {'filename'},
-                lualine_c = {},
-                lualine_x = {},
-                lualine_y = {},
-                lualine_z = {},
-            },
-            inactive_winbar= {
-                lualine_a = {},
-                lualine_b = {{'filename', path = 1, color = {fg = "#ffffff"}}},
-                lualine_c = {},
-                lualine_x = {},
-                lualine_y = {},
-                lualine_z = {},
-            },
         }
     end,
 }
--- local monokai = {
---     normal = {
---         a = { bg = "#ffaf00", fg = "#303030"},
---         b = { bg = "#303030", fg = "#ffaf00"},
---         c = { bg = "#3a3a3a", fg = "#ffffff"},
---     },
---     insert = {
---         a = { bg = "#ffffa7", fg = "#303030"},
---         b = { bg = "#303030", fg = "#ffffa7"},
---         c = { bg = "#3a3a3a", fg = "#ffffff"},
---     },
---     visual = {
---         a = { bg = "#ffffff", fg = "#303030"},
---         b = { bg = "#303030", fg = "#ffffff"},
---         c = { bg = "#3a3a3a", fg = "#ffffff"},
---     },
---     command = {
---         a = { bg = "#ffffff", fg = "#303030"},
---         b = { bg = "#303030", fg = "#ffffff"},
---         c = { bg = "#3a3a3a", fg = "#ffffff"},
---     },
---     replace = {
---         a = { bg = "#ffffff", fg = "#303030"},
---         b = { bg = "#303030", fg = "#ffffff"},
---         c = { bg = "#3a3a3a", fg = "#ffffff"},
---     },
---     inactive = {
---         a = { bg = "#303030", fg = "#303030"},
---         b = { bg = "#303030", fg = "#303030"},
---         c = { bg = "#303030", fg = "#303030"},
---     },
--- }

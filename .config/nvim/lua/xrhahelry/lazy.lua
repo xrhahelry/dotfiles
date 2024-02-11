@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "xrhahelry.plugins" }, { import = "xrhahelry.plugins.lsp" } }, {
   install = {
-    colorscheme = { "monokai" },
+    colorscheme = { "sonokai" },
   },
   checker = {
     enabled = true,

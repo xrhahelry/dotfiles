@@ -20,7 +20,7 @@ function nf
 end
 
 function cf
-    cd (fd -t d -H | fzf --preview 'bat --color=always {}' --height 50% --border --reverse)
+    cd (fd -t d -H | fzf --height 50% --border --reverse)
 end
 
 function nff
@@ -30,7 +30,7 @@ end
 
 function cff
     cd
-    cd (fd -t d -H | fzf --preview 'bat --color=always {}' --height 50% --border --reverse)
+    cd (fd -t d -H | fzf --height 50% --border --reverse)
 end
 
 alias ls="eza -al --group-directories-first --color=always"

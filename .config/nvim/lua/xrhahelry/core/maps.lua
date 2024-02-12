@@ -45,4 +45,5 @@ vim.keymap.set("n", "<leader><leader>", function()
 end, { desc = "Source file" })
 
 -- lsp formatting
-keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format buffer" })
+-- keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format buffer" })
+keymap.set("n", "<leader>f", "gg=G", { desc = "Format buffer" })

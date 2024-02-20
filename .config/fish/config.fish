@@ -57,5 +57,6 @@ alias nc="cd ~/.config/nvim/lua/xrhahelry"
 alias crun="cargo run"
 alias cbuild="cargo build"
 alias ccheck="cargo check"
+alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
 
 starship init fish | source

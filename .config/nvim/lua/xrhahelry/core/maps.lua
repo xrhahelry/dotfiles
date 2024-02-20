@@ -7,7 +7,7 @@ local keymap = vim.keymap -- for conciseness
 -- General Keymaps -------------------
 
 -- close neovim
-keymap.set("n", "<leader>q", "<cmd>qall<cr>", { desc = "Close Neovim"})
+keymap.set("n", "<leader>q", "<cmd>qall<cr>", { desc = "Close Neovim" })
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
@@ -45,5 +45,4 @@ vim.keymap.set("n", "<leader><leader>", function()
 end, { desc = "Source file" })
 
 -- lsp formatting
--- keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format buffer" })
-keymap.set("n", "<leader>f", "gg=G", { desc = "Format buffer" })
+keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<CR> gg=G", { desc = "Format buffer" })

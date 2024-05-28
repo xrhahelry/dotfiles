@@ -1,5 +1,6 @@
 ### Manually adding to path
 set -e fish_user_paths
+# set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $HOME/anaconda3/bin $fish_user_paths
 set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $fish_user_paths
 
 set fish_greeting
@@ -60,3 +61,13 @@ alias ccheck="cargo check"
 alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
 
 starship init fish | source
+
+if test -f /home/xrhahelry/anaconda3/bin/conda
+    eval /home/xrhahelry/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/home/xrhahelry/anaconda3/etc/fish/conf.d/conda.fish"
+        . "/home/xrhahelry/anaconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/home/xrhahelry/anaconda3/bin" $PATH
+    end
+end

@@ -1,10 +1,17 @@
 return {
-    'morhetz/gruvbox',
+    "blazkowolf/gruber-darker.nvim",
     priority = 1000,
     config = function ()
-        vim.cmd([[colorscheme gruvbox]])
+        vim.cmd.colorscheme("gruber-darker")
     end
 }
+-- return {
+--     'morhetz/gruvbox',
+--     priority = 1000,
+--     config = function ()
+--         vim.cmd([[colorscheme gruvbox]])
+--     end
+-- }
 -- return {
 --     -- 'tanvirtin/monokai.nvim',
 --     'sainnhe/sonokai',

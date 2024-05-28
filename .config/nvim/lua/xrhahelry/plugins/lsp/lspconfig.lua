@@ -71,9 +71,18 @@ return {
         end
 
         -- configure python server
-        lspconfig["pyright"].setup({
+        lspconfig["pylsp"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            settings = {
+                pylsp = {
+                    plugins = {
+                        pyflakes = { enabled = false },
+                        pycodestyle = { enabled = false },
+                        mccabe = { enabled = false }
+                    }
+                }
+            }
         })
 
         -- configure c/c++ server

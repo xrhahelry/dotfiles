@@ -4,7 +4,7 @@ set -e fish_user_paths
 set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $fish_user_paths
 
 set fish_greeting
-set TERM "xterm-256color"
+set TERM "tmux-256color"
 set EDITOR "nvim"
 set VISUAL "nvim"
 

@@ -12,14 +12,14 @@ keymap.set("n", "<leader>q", "<cmd>qall<cr>", { desc = "Close Neovim" })
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- horizontal movement
-keymap.set('n', 'L', '$', { desc = "Move cursor to end of line" })
-keymap.set('n', 'H', '^', { desc = "Move cursor to start of line" })
-keymap.set('v', 'L', '$', { desc = "Move cursor to end of line" })
-keymap.set('v', 'H', '^', { desc = "Move cursor to start of line" })
+keymap.set("n", "L", "$", { desc = "Move cursor to end of line" })
+keymap.set("n", "H", "^", { desc = "Move cursor to start of line" })
+keymap.set("v", "L", "$", { desc = "Move cursor to end of line" })
+keymap.set("v", "H", "^", { desc = "Move cursor to start of line" })
 
 -- vertical movement
-keymap.set('n', '<C-i>', '<C-d>zz', { desc = "Half page down" })
-keymap.set('n', '<C-u>', '<C-u>zz', { desc = "Half page up" })
+keymap.set("n", "<C-i>", "<C-d>zz", { desc = "Half page down" })
+keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
 keymap.set("n", "n", "nzzzv", { desc = "Next item in search" })
 keymap.set("n", "N", "Nzzzv", { desc = "Previous item in search" })
 keymap.set("n", "J", "mzJ`z", { desc = "Merge line below" })
@@ -38,11 +38,3 @@ keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Go to previous tab
 -- visual mode line moving
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
-
--- source current file
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end, { desc = "Source file" })
-
--- lsp formatting
-keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<CR> gg=G", { desc = "Format buffer" })

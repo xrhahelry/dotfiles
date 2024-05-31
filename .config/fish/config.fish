@@ -71,3 +71,4 @@ else
         set -x PATH "/home/xrhahelry/anaconda3/bin" $PATH
     end
 end
+

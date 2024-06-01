@@ -12,9 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "xrhahelry.plugins" }, { import = "xrhahelry.plugins.lsp" } }, {
-	install = {
-		colorscheme = { "catppuccin" },
-	},
 	checker = {
 		enabled = true,
 		notify = false,

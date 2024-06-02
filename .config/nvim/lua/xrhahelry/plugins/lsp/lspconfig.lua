@@ -122,5 +122,15 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
+
+		lspconfig["emmet_language_server"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		lspconfig["jinja_lsp"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 	end,
 }

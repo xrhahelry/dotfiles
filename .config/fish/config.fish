@@ -59,6 +59,8 @@ alias crun="cargo run"
 alias cbuild="cargo build"
 alias ccheck="cargo check"
 alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
+alias active="conda activate"
+alias deactive="conda deactivate"
 
 starship init fish | source
 

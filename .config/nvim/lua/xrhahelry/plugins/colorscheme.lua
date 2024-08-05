@@ -12,5 +12,12 @@ ColorGruberDarker = {
 		vim.cmd("colorscheme gruber-darker")
 	end,
 }
+ColorGruvbox = {
+	"ellisonleao/gruvbox.nvim",
+	priority = 1000,
+	config = function()
+		vim.cmd("colorscheme gruvbox")
+	end,
+}
 
 return ColorCatppuccin

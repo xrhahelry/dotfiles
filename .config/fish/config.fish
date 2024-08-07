@@ -61,6 +61,7 @@ alias ccheck="cargo check"
 alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
 alias active="conda activate"
 alias deactive="conda deactivate"
+alias rr="cd ~/references/"
 
 starship init fish | source
 
@@ -74,3 +75,5 @@ else
     end
 end
 
+
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/xrhahelry/.ghcup/bin $PATH # ghcup-env

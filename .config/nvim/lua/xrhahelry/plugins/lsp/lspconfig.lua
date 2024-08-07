@@ -57,6 +57,10 @@ return {
 
 			opts.desc = "Restart LSP"
 			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+			client.handlers["window/showMessage"] = function(_, result, ctx)
+				return result
+			end
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)
@@ -134,6 +138,11 @@ return {
 		})
 
 		lspconfig["texlab"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		lspconfig["hls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})

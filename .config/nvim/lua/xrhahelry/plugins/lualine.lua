@@ -54,7 +54,8 @@ return {
 						color = { fg = "#ffffff" },
 					},
 				},
-				lualine_z = { 'os.date("%I:%M")' },
+				-- lualine_z = { 'os.date("%I:%M")' },
+				lualine_z = { "location" },
 			},
 			inactive_sections = {
 				lualine_c = { {

@@ -29,7 +29,7 @@ opt.background = "dark" -- colorschemes that can be light or dark will be made d
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 opt.scrolloff = 10
 opt.showmode = false
-opt.colorcolumn = "100"
+opt.colorcolumn = "72"
 
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position

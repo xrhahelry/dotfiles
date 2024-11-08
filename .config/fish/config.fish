@@ -62,6 +62,8 @@ alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
 alias active="conda activate"
 alias deactive="conda deactivate"
 alias rr="cd ~/references/"
+alias cc="code ."
+alias nn="nvim ."
 
 starship init fish | source
 

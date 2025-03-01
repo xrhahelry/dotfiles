@@ -4,7 +4,7 @@ opt.updatetime = 50
 
 -- line numbers
 opt.relativenumber = true
--- opt.number = true
+opt.number = true
 
 -- tabs & indentation
 opt.tabstop = 2

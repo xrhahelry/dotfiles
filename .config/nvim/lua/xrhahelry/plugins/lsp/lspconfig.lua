@@ -151,5 +151,10 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
+
+		lspconfig["julialsp"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 	end,
 }

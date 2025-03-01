@@ -5,13 +5,13 @@ ColorCatppuccin = {
 	config = function()
 		require("catppuccin").setup({
 			transparent_background = false,
-			color_overrides = {
-				mocha = {
-					base = "#181818",
-					mantle = "#181818",
-					crust = "#181818",
-				},
-			},
+			-- color_overrides = {
+			-- 	mocha = {
+			-- 		base = "#181818",
+			-- 		mantle = "#181818",
+			-- 		crust = "#181818",
+			-- 	},
+			-- },
 		})
 		vim.cmd("colorscheme catppuccin")
 	end,
@@ -44,4 +44,4 @@ ColorRosePine = {
 	end,
 }
 
-return ColorGruberDarker
+return ColorCatppuccin

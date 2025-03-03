@@ -34,6 +34,22 @@ function cff
     cd (fd -t d -H | fzf --height 50% --border --reverse)
 end
 
+function jl
+    julia --project=. $argv[1]
+end
+
+function jladd
+    for arg in $argv
+        julia -e "using Pkg; Pkg.activate(\".\"); Pkg.add(\"$arg\")"
+    end
+end
+
+function jlremove
+    for arg in $argv
+        julia -e "using Pkg; Pkg.activate(\".\"); Pkg.rm(\"$arg\")"
+    end
+end
+
 alias ls="eza -al --group-directories-first --color=always"
 alias la="eza -a --group-directories-first --color=always"
 alias lr="eza -aT --group-directories-first --git-ignore --color=always"

@@ -8,7 +8,7 @@ return {
             mode = "vimux",
             filetype = {
                 haskell = "cd $dir && runghc $fileName",
-                julia = "cd $dir && julia $fileName",
+                julia = "cd $dir && julia --project=$dir $fileName",
                 python = "python -u '$dir/$fileName'",
             }
         })

@@ -31,7 +31,7 @@ opt.scrolloff = 10
 opt.showmode = false
 opt.colorcolumn = "90"
 opt.laststatus = 3
-opt.guicursor = ""
+-- opt.guicursor = ""
 
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position

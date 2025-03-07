@@ -5,13 +5,6 @@ ColorCatppuccin = {
 	config = function()
 		require("catppuccin").setup({
 			transparent_background = false,
-			-- color_overrides = {
-			-- 	mocha = {
-			-- 		base = "#181818",
-			-- 		mantle = "#181818",
-			-- 		crust = "#181818",
-			-- 	},
-			-- },
 		})
 		vim.cmd("colorscheme catppuccin")
 	end,
@@ -44,4 +37,45 @@ ColorRosePine = {
 	end,
 }
 
-return ColorCatppuccin
+ColorOneDark = {
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+        require('onedark').setup {
+            style = 'dark'
+        }
+        require('onedark').load()
+    end
+}
+
+ColorOldWorld = {
+    "dgox16/oldworld.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function ()
+        vim.cmd.colorscheme("oldworld")
+    end
+}
+
+ColorNordic = {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require('nordic').setup({
+            noice = {
+                style = 'flat'
+            },
+            telescope = {
+                style = 'flat'
+            },
+            on_highlight = function(highlights)
+                highlights.StatusLine = { fg = "#c0c8d8" }
+            end,
+        })
+        require('nordic').load()
+    end
+}
+
+return ColorNordic
+

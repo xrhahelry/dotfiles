@@ -7,8 +7,8 @@ return {
         require('code_runner').setup({
             mode = "vimux",
             filetype = {
-                haskell = "cd $dir && runghc $fileName",
-                julia = "cd $dir && julia --project=$dir $fileName",
+                haskell = "runghc $dir/$fileName",
+                julia = "julia --project=$dir $dir/$fileName",
                 python = "python -u '$dir/$fileName'",
             }
         })
@@ -16,5 +16,6 @@ return {
             require('code_runner').run_code()
         end,
         { noremap = true, silent = false, desc = "Run Current File" })
+        vim.g.VimuxHeight = "50%"
     end
 }

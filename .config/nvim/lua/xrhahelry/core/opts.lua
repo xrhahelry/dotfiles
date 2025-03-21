@@ -52,3 +52,6 @@ vim.opt.undofile = true
 -- searching
 opt.hlsearch = false
 opt.incsearch = true
+
+-- fixing padding issues in terminals
+vim.opt.lines = 999

@@ -60,24 +60,14 @@ alias it="cd ~/projects"
 alias ex="explorer.exe ."
 alias lg="lazygit"
 alias rd='rm -rf'
-alias addall="git add ."
-alias gadd="git add"
-alias clone="git clone"
-alias pull="git pull"
-alias push="git push"
-alias commit="git commit -m"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias conadd="config add -u"
 alias concommit="config commit -m"
 alias conpush="config push"
 alias nc="cd ~/.config/nvim/lua/xrhahelry"
-alias crun="cargo run"
-alias cbuild="cargo build"
-alias ccheck="cargo check"
 alias ob="cd /mnt/c/Users/N\ I\ T\ R\ O\ 5/Documents/Second\ Brain/"
 alias active="conda activate"
 alias deactive="conda deactivate"
-alias rr="cd ~/references/"
 alias cc="code ."
 alias nn="nvim ."
 
@@ -93,5 +83,14 @@ else
     end
 end
 
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
+set -gx PATH $HOME/.cabal/bin /home/xrhahelry/.ghcup/bin $PATH # ghcup-env
 
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/xrhahelry/.ghcup/bin $PATH # ghcup-env
+# if not set -q TMUX
+#     if command -v tmux > /dev/null
+#         exec tmux
+#     else
+#         echo "tmux is not installed. Please install it first."
+#     end
+# else
+# end

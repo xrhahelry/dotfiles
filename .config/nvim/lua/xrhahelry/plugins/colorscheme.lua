@@ -69,9 +69,9 @@ ColorNordic = {
             telescope = {
                 style = 'flat'
             },
-            on_highlight = function(highlights)
-                highlights.StatusLine = { fg = "#c0c8d8" }
-            end,
+        --     on_highlight = function(highlights)
+        --         highlights.StatusLine = { fg = "#c0c8d8" }
+        --     end,
         })
         require('nordic').load()
     end

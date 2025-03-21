@@ -161,7 +161,7 @@ return {
       settings = {
         julia = {
           format = {
-            enable = true,  -- Enable auto-formatting if desired
+            enable = true,
           },
           diagnostics= {
             enable = false,
@@ -171,7 +171,6 @@ return {
           }
         }
       },
-      -- Set the root directory to speed up the initialization
       root_dir = lspconfig.util.root_pattern("Project.toml", ".git"),
     })
   end,

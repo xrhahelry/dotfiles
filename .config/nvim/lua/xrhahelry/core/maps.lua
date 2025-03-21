@@ -38,3 +38,7 @@ keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Go to previous tab
 -- visual mode line moving
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+
+-- indentation fix in visual mode
+vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })

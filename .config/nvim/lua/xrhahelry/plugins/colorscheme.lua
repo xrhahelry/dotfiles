@@ -77,5 +77,15 @@ ColorNordic = {
     end
 }
 
-return ColorNordic
+ColorDoomOne = {
+    "NTBBloodbath/doom-one.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        -- require('doom-one').setup()
+        vim.cmd.colorscheme("doom-one")
+    end
+}
+
+return ColorDoomOne
 

@@ -14,7 +14,7 @@ return {
             },
             plugins = {
                 tmux = { enabled = true },
-                twilight = { enabled = true }
+                twilight = { enabled = false }
             },
         }
         vim.keymap.set("n", '<leader>z', function()

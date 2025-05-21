@@ -137,17 +137,17 @@ return {
             on_attach = on_attach,
         })
 
-        lspconfig["texlab"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = {
-                texlab = {
-                    diagnostics = {
-                        ignoredPatterns = { "Overfull", "Underfull", "Package microtype" }
-                    }
-                }
-            }
-        })
+        -- lspconfig["texlab"].setup({
+        --     capabilities = capabilities,
+        --     on_attach = on_attach,
+        --     settings = {
+        --         texlab = {
+        --             diagnostics = {
+        --                 ignoredPatterns = { "Overfull", "Underfull", "Package microtype" }
+        --             }
+        --         }
+        --     }
+        -- })
 
         lspconfig["yamlls"].setup({
             capabilities = capabilities,

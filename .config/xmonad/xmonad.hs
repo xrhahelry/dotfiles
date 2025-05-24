@@ -87,9 +87,9 @@ myNavConf = def
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Basic bindings
-    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)  -- mod + return = terminal
-    , ((modm,               xK_p     ), spawn "dmenu_run")             -- mod + p = dmenu
-    , ((modm,               xK_q     ), kill)                          -- mod + c = close window
+    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run")
+    , ((modm,               xK_q     ), kill)
     , ((modm,               xK_w     ), spawn "firefox")
     , ((modm,               xK_n     ), spawn "obsidian")
     , ((modm,               xK_e     ), spawn "nautilus")

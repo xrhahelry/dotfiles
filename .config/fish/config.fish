@@ -71,6 +71,7 @@ alias deactive="conda deactivate"
 alias cc="code ."
 alias nn="nvim ."
 alias tlauncher="java -jar /opt/TLauncher.jar"
+alias doom=" ~/.config/emacs/bin/doom"
 
 starship init fish | source
 

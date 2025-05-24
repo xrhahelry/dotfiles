@@ -1,3 +1,44 @@
+[colors.primary]
+background = "#282c34"
+foreground = "#bbc2cf"
+
+[colors.normal]
+black   = "#1c1f24"
+red     = "#ff6c6b"
+green   = "#98be65"
+yellow  = "#ecbe7b"
+blue    = "#51afef"
+magenta = "#c678dd"
+cyan    = "#46d9ff"
+white   = "#dfdfdf"
+
+[colors.bright]
+black   = "#5b6268"
+red     = "#da8548"
+green   = "#4db5bd"
+yellow  = "#ecbe7b"
+blue    = "#3071db"
+magenta = "#a9a1e1"
+cyan    = "#46d9ff"
+white   = "#ffffff"
+[env]
+TERM = "xterm-256color"
+
 [font]
-family = "IosevkaTerm Nerd Font"
+normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
+bold = { family = "IosevkaTerm Nerd Font", style = "Bold" }
+italic = { family = "IosevkaTerm Nerd Font", style = "Italic" }
 size = 12
+
+[window]
+dynamic_padding = false
+opacity = 1.0
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 6
+y = 6

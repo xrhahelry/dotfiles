@@ -6,8 +6,10 @@ import XMonad.Actions.Navigation2D
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.DynamicLog
 import XMonad.Actions.CycleWS
 import System.Exit
+import System.Process
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
@@ -35,6 +37,28 @@ myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 -- Keep track of previous layout
 previousLayout :: String
 previousLayout = "Tall"
+
+------------------------------------------------------------------------
+-- Monitor Detection and Setup
+------------------------------------------------------------------------
+-- Detect number of connected monitors
+getConnectedMonitors :: IO Int
+getConnectedMonitors = do
+    output <- readProcess "xrandr" ["--listactivemonitors"] ""
+    let monitors = length $ filter (elem ':') $ lines output
+    return $ max 1 monitors  -- At least 1 monitor
+
+-- Setup monitor configuration based on detected monitors
+setupMonitors :: IO ()
+setupMonitors = do
+    numMonitors <- getConnectedMonitors
+    case numMonitors of
+        1 -> return ()  -- Single monitor, no setup needed
+        2 -> spawn "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
+        3 -> do
+            spawn "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
+            spawn "xrandr --output DP-1 --mode 1920x1080 --right-of HDMI-1-0"
+        _ -> return ()  -- Handle additional monitors as needed
 
 ------------------------------------------------------------------------
 -- Custom Functions
@@ -147,7 +171,7 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 -- Event Handling
 ------------------------------------------------------------------------
--- myEventHook = docksEventHook <+> ewmhDesktopsEventHook
+-- myEventHook = ewmhFullscreen
 
 ------------------------------------------------------------------------
 -- Startup Hook
@@ -163,8 +187,7 @@ myStartupHook = do
 ------------------------------------------------------------------------
 main :: IO ()
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/xrhahelry/.config/xmobar/xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/xrhahelry/.config/xmobar/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
     xmonad $ withNavigation2DConfig myNavConf $ docks $ ewmh defaults
 
 ------------------------------------------------------------------------
@@ -183,6 +206,6 @@ defaults = def
     , mouseBindings      = myMouseBindings
     , layoutHook         = myLayout
     , manageHook         = myManageHook
-    -- , handleEventHook    = myEventHook
+    -- , handleEventHook    = fullscreenEventHook
     , startupHook        = myStartupHook
     }

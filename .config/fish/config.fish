@@ -60,7 +60,7 @@ alias it="cd ~/projects"
 alias ex="explorer.exe ."
 alias lg="lazygit"
 alias rd='rm -rf'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias conadd="config add -u"
 alias concommit="config commit -m"
 alias conpush="config push"
@@ -70,6 +70,7 @@ alias active="conda activate"
 alias deactive="conda deactivate"
 alias cc="code ."
 alias nn="nvim ."
+alias tlauncher="java -jar /opt/TLauncher.jar"
 
 starship init fish | source
 

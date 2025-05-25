@@ -1,3 +1,7 @@
+#+title: Doom emacs config
+
+* Set theme, font and line numbers
+#+begin_src emacs-lisp
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type 'relative)
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 20 :weight 'medium)
@@ -9,23 +13,32 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
-
+#+end_src
+* Splits and tab width
+#+begin_src emacs-lisp
 (setq-default tab-width 4)
 (setq-default evil-shift-width tab-width)
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
-
+#+end_src
+* Keybindings
+** Set jk to esc
+#+begin_src emacs-lisp
 (setq evil-escape-key-sequence "jk"
       evil-escape-delay 0.2)
 (evil-escape-mode 1)
-
+#+end_src
+** Line movement
+#+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "H") (kbd "^"))
 (define-key evil-normal-state-map (kbd "L") (kbd "$"))
 (define-key evil-visual-state-map (kbd "H") (kbd "^"))
 (define-key evil-visual-state-map (kbd "L") (kbd "$"))
-
+#+end_src
+** Evaluating lisp expressions
+#+begin_src emacs-lisp
 (map! :leader
       (:prefix ("e". "evaluate")
        :desc "Evaluate elisp in buffer"  "b" #'eval-buffer
@@ -33,7 +46,9 @@
        :desc "Evaluate elisp expression" "e" #'eval-expression
        :desc "Evaluate last sexpression" "l" #'eval-last-sexp
        :desc "Evaluate elisp in region"  "r" #'eval-region))
-
+#+end_src
+* Doom Modeline
+#+begin_src emacs-lisp
 (set-face-attribute 'mode-line nil :font "JetBrainsMono" :height 0.9)
 (setq doom-modeline-height 35
       doom-modeline-bar-width 5
@@ -44,7 +59,10 @@
       doom-modeline-persp-icon t
       doom-modeline-buffer-modification-icon t
       doom-modeline-modal-icon nil)
-
+#+end_src
+* Org Mode
+** Basic Config
+#+begin_src emacs-lisp
 (after! org
   (setq inhibit-compacting-font-caches t)
   (custom-set-faces
@@ -62,7 +80,9 @@
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("◉" "●" "◆" "○" "●" "◆" "○")))
-
+#+end_src
+* Dired Mode
+#+begin_src emacs-lisp
 (map! :leader
       (:prefix ("d" . "dired")
        :desc "Open dired" "d" #'dired
@@ -98,3 +118,4 @@
   (kbd "* /") 'dired-mark-directories
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
+#+end_src

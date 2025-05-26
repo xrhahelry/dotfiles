@@ -74,12 +74,34 @@
     '(org-level-6 ((t (:inherit outline-6 :height 1.0 :family "JetBrainsMono"))))
     '(org-level-7 ((t (:inherit outline-7 :height 1.0 :family "JetBrainsMono"))))
     '(org-level-8 ((t (:inherit outline-8 :height 1.0 :family "JetBrainsMono")))))
-  (setq org-ellipsis " ▼ "))
+  (setq org-directory "~/org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "))
   (use-package! org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("◉" "●" "◆" "○" "●" "◆" "○")))
+#+end_src
+** Org Roam
+#+begin_src emacs-lisp
+(after! org
+  (setq org-roam-directory "~/org/roam/"
+        org-roam-graph-viewer "/usr/bin/firefox"))
+
+(map! :leader
+      (:prefix ("n r" . "org-roam")
+       :desc "Completion at point" "c" #'completion-at-point
+       :desc "Find node"           "f" #'org-roam-node-find
+       :desc "Show graph"          "g" #'org-roam-graph
+       :desc "Insert node"         "i" #'org-roam-node-insert
+       :desc "Capture to node"     "n" #'org-roam-capture
+       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
+#+end_src
+** Org Agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files '("~/org/agenda.org")))
 #+end_src
 * Dired Mode
 #+begin_src emacs-lisp

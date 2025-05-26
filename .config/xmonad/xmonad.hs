@@ -4,9 +4,11 @@ import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
 import XMonad.Actions.Navigation2D
 import XMonad.Layout.WindowNavigation
+import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
 import XMonad.Actions.CycleWS
 import System.Exit
 import System.Process
@@ -92,7 +94,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_q     ), kill)
     , ((modm,               xK_w     ), spawn "firefox")
     , ((modm,               xK_n     ), spawn "obsidian")
-    , ((modm,               xK_e     ), spawn "nautilus")
+    , ((modm,               xK_e     ), spawn "emacsclient -c")
+
+    , ((modm,               xK_b     ), sendMessage ToggleStruts)
 
     -- Window focus navigation (hjkl)
     , ((modm,               xK_h     ), windowGo L True)              -- mod + h = focus left

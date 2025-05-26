@@ -29,6 +29,15 @@ function nff
     nvim (fd -t f -H | fzf --preview 'bat --color=always {}' --height 50% --border --reverse)
 end
 
+function eff
+    cd
+    emacsclient -c -a emacs (fd -t f -H | fzf --preview 'bat --color=always {}' --height 50% --border --reverse)
+end
+
+function ef
+    emacsclient -c -a emacs (fd -t f -H | fzf --preview 'bat --color=always {}' --height 50% --border --reverse)
+end
+
 function cff
     cd
     cd (fd -t d -H | fzf --height 50% --border --reverse)

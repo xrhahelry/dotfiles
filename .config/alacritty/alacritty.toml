@@ -29,7 +29,7 @@ TERM = "xterm-256color"
 normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
 bold = { family = "IosevkaTerm Nerd Font", style = "Bold" }
 italic = { family = "IosevkaTerm Nerd Font", style = "Italic" }
-size = 15
+size = 10
 
 [window]
 dynamic_padding = false

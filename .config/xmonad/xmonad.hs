@@ -181,13 +181,14 @@ myStartupHook = do
     spawnOnce "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
     spawnOnce "feh --randomize --bg-fill /home/xrhahelry/Pictures/wallpapers/*"
     spawnOnce "picom"
+    spawn "/usr/bin/emacs --daemon"
+    spawn "polybar"
 
 ------------------------------------------------------------------------
 -- Main
 ------------------------------------------------------------------------
 main :: IO ()
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
     xmonad $ withNavigation2DConfig myNavConf $ docks $ ewmh defaults
 
 ------------------------------------------------------------------------

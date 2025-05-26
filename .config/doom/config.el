@@ -1,8 +1,8 @@
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type 'relative)
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 20 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 15 :weight 'light)
-      doom-big-font (font-spec :family "Iosevka" :size 30))
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono" :size 15 :weight 'light)
+      doom-big-font (font-spec :family "Iosevka Nerd Font" :size 30))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))

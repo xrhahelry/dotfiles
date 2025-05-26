@@ -1,12 +1,12 @@
 ### Manually adding to path
 set -e fish_user_paths
 # set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $HOME/anaconda3/bin $fish_user_paths
-set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $fish_user_paths
+set -U fish_user_paths $HOME/.bin $HOME/.local/bin $HOME/.cargo/bin $fish_user_paths
 
 set fish_greeting
-set TERM "tmux-256color"
-set EDITOR "nvim"
-set VISUAL "nvim"
+set TERM tmux-256color
+set EDITOR "emacsclient -t -a ''"
+set VISUAL "emacsclient -c -a emacs"
 
 set -x MANPAGER "nvim +Man!"
 
@@ -50,6 +50,8 @@ function jlremove
     end
 end
 
+alias emacs="emacsclient -c -a 'emacs'"
+alias rem="killall emacs || echo 'Emacs server not running'; /usr/bin/emacs --daemon" # Kill Emacs and restart daemon..
 alias ls="eza -al --group-directories-first --color=always"
 alias la="eza -a --group-directories-first --color=always"
 alias lr="eza -aT --group-directories-first --git-ignore --color=always"
@@ -73,15 +75,19 @@ alias nn="nvim ."
 alias tlauncher="java -jar /opt/TLauncher.jar"
 alias doom=" ~/.config/emacs/bin/doom"
 
+if status is-interactive
+    colorscript random
+end
+
 starship init fish | source
 
 if test -f /home/xrhahelry/anaconda3/bin/conda
-    eval /home/xrhahelry/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+    eval /home/xrhahelry/anaconda3/bin/conda "shell.fish" hook $argv | source
 else
     if test -f "/home/xrhahelry/anaconda3/etc/fish/conf.d/conda.fish"
         . "/home/xrhahelry/anaconda3/etc/fish/conf.d/conda.fish"
     else
-        set -x PATH "/home/xrhahelry/anaconda3/bin" $PATH
+        set -x PATH /home/xrhahelry/anaconda3/bin $PATH
     end
 end
 

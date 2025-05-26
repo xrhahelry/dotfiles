@@ -21,6 +21,7 @@ blue    = "#3071db"
 magenta = "#a9a1e1"
 cyan    = "#46d9ff"
 white   = "#ffffff"
+
 [env]
 TERM = "xterm-256color"
 
@@ -28,7 +29,7 @@ TERM = "xterm-256color"
 normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
 bold = { family = "IosevkaTerm Nerd Font", style = "Bold" }
 italic = { family = "IosevkaTerm Nerd Font", style = "Italic" }
-size = 12
+size = 15
 
 [window]
 dynamic_padding = false

@@ -41,28 +41,6 @@ previousLayout :: String
 previousLayout = "Tall"
 
 ------------------------------------------------------------------------
--- Monitor Detection and Setup
-------------------------------------------------------------------------
--- Detect number of connected monitors
-getConnectedMonitors :: IO Int
-getConnectedMonitors = do
-    output <- readProcess "xrandr" ["--listactivemonitors"] ""
-    let monitors = length $ filter (elem ':') $ lines output
-    return $ max 1 monitors  -- At least 1 monitor
-
--- Setup monitor configuration based on detected monitors
-setupMonitors :: IO ()
-setupMonitors = do
-    numMonitors <- getConnectedMonitors
-    case numMonitors of
-        1 -> return ()  -- Single monitor, no setup needed
-        2 -> spawn "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
-        3 -> do
-            spawn "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
-            spawn "xrandr --output DP-1 --mode 1920x1080 --right-of HDMI-1-0"
-        _ -> return ()  -- Handle additional monitors as needed
-
-------------------------------------------------------------------------
 -- Custom Functions
 ------------------------------------------------------------------------
 -- Toggle between fullscreen and previous layout
@@ -178,11 +156,6 @@ myManageHook = composeAll
     ] <+> manageDocks
 
 ------------------------------------------------------------------------
--- Event Handling
-------------------------------------------------------------------------
--- myEventHook = ewmhFullscreen
-
-------------------------------------------------------------------------
 -- Startup Hook
 ------------------------------------------------------------------------
 myStartupHook :: X ()
@@ -191,7 +164,7 @@ myStartupHook = do
     spawnOnce "feh --randomize --bg-fill /home/xrhahelry/Pictures/wallpapers/*"
     spawnOnce "picom"
     spawn "/usr/bin/emacs --daemon"
-    spawn "polybar"
+    spawn "polybar -r main"
 
 ------------------------------------------------------------------------
 -- Main
@@ -216,6 +189,5 @@ defaults = def
     , mouseBindings      = myMouseBindings
     , layoutHook         = myLayout
     , manageHook         = myManageHook
-    -- , handleEventHook    = fullscreenEventHook
     , startupHook        = myStartupHook
     }

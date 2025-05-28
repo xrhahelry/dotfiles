@@ -116,3 +116,69 @@
   (kbd "* /") 'dired-mark-directories
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
+
+;; Code runner configuration for Emacs using compile
+(defvar code-runner-commands
+  '((haskell-mode . "runghc %f")
+    (julia-mode . "julia --project=%d %f")
+    (python-mode . "python -u '%f'")
+    (c++-mode . "cd %d && ./build.sh")
+    (c-mode . "cd %d && ./build.sh"))
+  "Alist of major modes to their respective run commands.
+%f = full file path, %d = directory path, %n = file name without extension")
+
+(defun code-runner-expand-command (command)
+  "Expand placeholders in COMMAND with current buffer information."
+  (let* ((file-path (buffer-file-name))
+         (dir-path (file-name-directory file-path))
+         (file-name (file-name-nondirectory file-path))
+         (file-base (file-name-sans-extension file-name)))
+    (replace-regexp-in-string
+     "%f" file-path
+     (replace-regexp-in-string
+      "%d" (directory-file-name dir-path)
+      (replace-regexp-in-string
+       "%n" file-base
+       command)))))
+
+(defun code-runner-run-file ()
+  "Run the current file based on its major mode."
+  (interactive)
+  (if-let ((command-template (alist-get major-mode code-runner-commands)))
+      (let* ((expanded-command (code-runner-expand-command command-template))
+             (default-directory (file-name-directory (buffer-file-name))))
+        (save-buffer)
+        (compile expanded-command))
+    (message "No run command defined for %s" major-mode)))
+
+(defun code-runner-add-command (mode command)
+  "Add or update a run command for a specific MODE."
+  (interactive
+   (list (intern (completing-read "Major mode: "
+                                  (mapcar #'car code-runner-commands)))
+         (read-string "Command: ")))
+  (setf (alist-get mode code-runner-commands) command)
+  (message "Added command for %s: %s" mode command))
+
+;; Doom Emacs key binding
+(map! :leader
+      (:prefix ("r" . "run")
+       :desc "Run current file" "f" #'code-runner-run-file))
+
+;; Set compilation window height (similar to VimuxHeight)
+(setq compilation-window-height 10)
+
+;; Focus compilation buffer after running
+(defun code-runner-focus-compilation ()
+  "Focus the compilation buffer after compilation starts."
+  (when-let ((comp-window (get-buffer-window "*compilation*")))
+    (select-window comp-window)))
+
+(add-hook 'compilation-start-hook 'code-runner-focus-compilation)
+
+;; Colorize compilation output
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  "Colorize compilation buffer output."
+  (ansi-color-apply-on-region compilation-filter-start (point)))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)

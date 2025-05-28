@@ -108,9 +108,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_c     ), io (exitWith ExitSuccess))                                   -- mod + shift + q = quit xmonad
 
     -- Audio controls
-    , ((modm, xK_F9 ), spawn "pactl set-sink-mute 612 toggle")             -- mod + F9 = toggle mute
-    , ((modm, xK_F10), spawn "pactl set-sink-volume 612 -1%")              -- mod + F10 = increase volume
-    , ((modm, xK_F11), spawn "pactl set-sink-volume 612 +1%")              -- mod + F11 = decrease volume
+    , ((modm, xK_F9 ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")             -- mod + F9 = toggle mute
+    , ((modm, xK_F10), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")              -- mod + F10 = increase volume
+    , ((modm, xK_F11), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")              -- mod + F11 = decrease volume
     ]
     ++
     -- Workspace switching (mod + 1-9)

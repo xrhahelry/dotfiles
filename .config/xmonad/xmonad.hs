@@ -90,7 +90,7 @@ myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Basic bindings
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
-    , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run")
+    , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run -i -l 5 -fn JetBrainsMono -p Run: -nb '#282c34' -nf '#bbc2cf' -sb '#5699af'")
     , ((modm,               xK_q     ), kill)
     , ((modm,               xK_w     ), spawn "firefox")
     , ((modm,               xK_n     ), spawn "obsidian")
@@ -128,6 +128,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- XMonad management
     , ((modm,               xK_c     ), spawn "xmonad --recompile; xmonad --restart")                -- mod + q = restart xmonad
     , ((modm .|. shiftMask, xK_c     ), io (exitWith ExitSuccess))                                   -- mod + shift + q = quit xmonad
+
+    -- Audio controls
+    , ((modm, xK_F9 ), spawn "pactl set-sink-mute 612 toggle")             -- mod + F9 = toggle mute
+    , ((modm, xK_F10), spawn "pactl set-sink-volume 612 -1%")              -- mod + F10 = increase volume
+    , ((modm, xK_F11), spawn "pactl set-sink-volume 612 +1%")              -- mod + F11 = decrease volume
     ]
     ++
     -- Workspace switching (mod + 1-9)

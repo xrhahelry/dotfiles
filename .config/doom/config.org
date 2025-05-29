@@ -23,21 +23,20 @@
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+end_src
-* Keybindings
-** Set jk to esc
+* Set jk to esc
 #+begin_src emacs-lisp
 (setq evil-escape-key-sequence "jk"
       evil-escape-delay 0.2)
 (evil-escape-mode 1)
 #+end_src
-** Line movement
+* Line movement
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "H") (kbd "^"))
 (define-key evil-normal-state-map (kbd "L") (kbd "$"))
 (define-key evil-visual-state-map (kbd "H") (kbd "^"))
 (define-key evil-visual-state-map (kbd "L") (kbd "$"))
 #+end_src
-** Evaluating lisp expressions
+* Evaluating lisp expressions
 #+begin_src emacs-lisp
 (map! :leader
       (:prefix ("e". "evaluate")
@@ -46,6 +45,13 @@
        :desc "Evaluate elisp expression" "e" #'eval-expression
        :desc "Evaluate last sexpression" "l" #'eval-last-sexp
        :desc "Evaluate elisp in region"  "r" #'eval-region))
+#+end_src
+* Window Management
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Vertical split" "v" #'split-window-right
+       :desc "Horizontal split" "s" #'split-window-below))
 #+end_src
 * Doom Modeline
 #+begin_src emacs-lisp
@@ -87,7 +93,7 @@
 #+begin_src emacs-lisp
 (after! org
   (setq org-roam-directory "~/org/roam/"
-        org-roam-graph-viewer "/usr/bin/firefox"))
+        org-roam-graph-viewer "/usr/bin/brave-browser"))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
@@ -143,19 +149,31 @@
 #+end_src
 
 * Code Runner with compile
+** Run Commands
+Alist of major modes to their respective run commands. Here, %f = full file path, %d = directory path, %n = file name without extension.
 #+begin_src emacs-lisp
-;; Code runner configuration for Emacs using compile
 (defvar code-runner-commands
   '((haskell-mode . "runghc %f")
     (julia-mode . "julia --project=%d %f")
     (python-mode . "python -u '%f'")
     (c++-mode . "cd %d && ./build.sh")
-    (c-mode . "cd %d && ./build.sh"))
-  "Alist of major modes to their respective run commands.
-%f = full file path, %d = directory path, %n = file name without extension")
+    (c-mode . "cd %d && ./build.sh")))
 
+#+end_src
+** Switch Compilation buffer style
+t for replace buffer and nil for split style
+#+begin_src emacs-lisp
+(defvar code-runner-replace-buffer t)
+
+;; Remove the focus-compilation hook since we're replacing the buffer
+;; (defun code-runner-focus-compilation ()
+;;   (when-let ((comp-window (get-buffer-window "*compilation*")))
+;;     (select-window comp-window)))
+;; (add-hook 'compilation-start-hook 'code-runner-focus-compilation)
+#+end_src
+** Rest of the Code
+#+begin_src emacs-lisp
 (defun code-runner-expand-command (command)
-  "Expand placeholders in COMMAND with current buffer information."
   (let* ((file-path (buffer-file-name))
          (dir-path (file-name-directory file-path))
          (file-name (file-name-nondirectory file-path))
@@ -169,17 +187,23 @@
        command)))))
 
 (defun code-runner-run-file ()
-  "Run the current file based on its major mode."
   (interactive)
   (if-let ((command-template (alist-get major-mode code-runner-commands)))
       (let* ((expanded-command (code-runner-expand-command command-template))
-             (default-directory (file-name-directory (buffer-file-name))))
+             (default-directory (file-name-directory (buffer-file-name)))
+             (current-window (selected-window)))
         (save-buffer)
-        (compile expanded-command))
+        (if code-runner-replace-buffer
+            (progn
+              ;; Set display-buffer-alist to reuse current window
+              (let ((display-buffer-alist
+                     '(("\\*compilation\\*"
+                        (display-buffer-reuse-window display-buffer-same-window)))))
+                (compile expanded-command)))
+          (compile expanded-command)))
     (message "No run command defined for %s" major-mode)))
 
 (defun code-runner-add-command (mode command)
-  "Add or update a run command for a specific MODE."
   (interactive
    (list (intern (completing-read "Major mode: "
                                   (mapcar #'car code-runner-commands)))
@@ -187,26 +211,56 @@
   (setf (alist-get mode code-runner-commands) command)
   (message "Added command for %s: %s" mode command))
 
-;; Doom Emacs key binding
 (map! :leader
       (:prefix ("r" . "run")
        :desc "Run current file" "f" #'code-runner-run-file))
 
-;; Set compilation window height (similar to VimuxHeight)
-(setq compilation-window-height 10)
-
-;; Focus compilation buffer after running
-(defun code-runner-focus-compilation ()
-  "Focus the compilation buffer after compilation starts."
-  (when-let ((comp-window (get-buffer-window "*compilation*")))
-    (select-window comp-window)))
-
-(add-hook 'compilation-start-hook 'code-runner-focus-compilation)
-
-;; Colorize compilation output
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
-  "Colorize compilation buffer output."
   (ansi-color-apply-on-region compilation-filter-start (point)))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+#+end_src
+* Conda Environment
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("a" . "Anaconda")
+       :desc "Activate conda environment" "a" #'conda-env-activate
+       :desc "Deactivate conda environment" "d" #'conda-env-deactivate))
+#+end_src
+* Jupyter
+** Make it pretty
+#+begin_src emacs-lisp
+(after! ein
+        (setq ein:output-area-inlined-images t)
+        (setq ein:output-area-mime-type-preferences
+                '("image/png" "text/html" "text/plain"))
+        (setq ein:cell-max-width 80)
+
+  ;; (defun my/center-ein-notebook ()
+  ;;   (setq-local visual-fill-column-width 100
+  ;;               visual-fill-column-center-text t)
+  ;;   (visual-fill-column-mode 1))
+
+  (defun my/ein-notebook-pretty ()
+    (display-line-numbers-mode 1))          ;; show line numbers in cells
+  ;;   (my/center-ein-notebook))               ;; center content
+
+  (add-hook 'ein:notebook-mode-hook #'my/ein-notebook-pretty)
+  )
+#+end_src
+** Keybinds
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("j" . "Jupyter")
+       :desc "Start jupyter server" "a" #'ein:jupyter-server-start
+       :desc "Stop jupyter server" "d" #'ein:jupyter-server-stop
+       :desc "Next Cell" "n" #'ein:worksheet-goto-next-input
+       :desc "Previous Cell" "p" #'ein:worksheet-goto-prev-input
+       :desc "Run all" "r" #'ein:worksheet-execute-all-cells
+       :desc "Clear output" "c" #'ein:worksheet-clear-output
+       :desc "Add cell above" "k" #'ein:worksheet-insert-cell-above
+       :desc "Add cell below" "j" #'ein:worksheet-insert-cell-below))
+
+(map! :map ein:notebook-mode-map
+      "C-<return>" #'ein:worksheet-execute-cell-and-goto-next)
 #+end_src

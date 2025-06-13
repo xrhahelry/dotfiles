@@ -70,7 +70,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run -i -l 5 -fn JetBrainsMono -p Run: -nb '#282c34' -nf '#bbc2cf' -sb '#5699af'")
     , ((modm,               xK_q     ), kill)
-    , ((modm,               xK_w     ), spawn "brave-browser")
+    , ((modm,               xK_w     ), spawn "firefox")
     , ((modm,               xK_n     ), spawn "obsidian")
     , ((modm,               xK_e     ), spawn "emacsclient -c")
 

@@ -53,17 +53,18 @@
 (after! org
   (setq inhibit-compacting-font-caches t)
   (custom-set-faces
-    '(org-level-1 ((t (:inherit outline-1 :height 1.5 :family "JetBrainsMono"))))
-    '(org-level-2 ((t (:inherit outline-2 :height 1.4 :family "JetBrainsMono"))))
-    '(org-level-3 ((t (:inherit outline-3 :height 1.3 :family "JetBrainsMono"))))
-    '(org-level-4 ((t (:inherit outline-4 :height 1.2 :family "JetBrainsMono"))))
-    '(org-level-5 ((t (:inherit outline-5 :height 1.1 :family "JetBrainsMono"))))
+    '(org-level-1 ((t (:inherit outline-1 :height 1.4 :family "JetBrainsMono"))))
+    '(org-level-2 ((t (:inherit outline-2 :height 1.3 :family "JetBrainsMono"))))
+    '(org-level-3 ((t (:inherit outline-3 :height 1.2 :family "JetBrainsMono"))))
+    '(org-level-4 ((t (:inherit outline-4 :height 1.1 :family "JetBrainsMono"))))
+    '(org-level-5 ((t (:inherit outline-5 :height 1.0 :family "JetBrainsMono"))))
     '(org-level-6 ((t (:inherit outline-6 :height 1.0 :family "JetBrainsMono"))))
     '(org-level-7 ((t (:inherit outline-7 :height 1.0 :family "JetBrainsMono"))))
     '(org-level-8 ((t (:inherit outline-8 :height 1.0 :family "JetBrainsMono")))))
   (setq org-directory "~/org/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
-        org-ellipsis " ▼ "))
+        org-ellipsis " ▼ "
+        org-log-done 'time))
   (use-package! org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
@@ -74,17 +75,33 @@
   (setq org-roam-directory "~/org/roam/"
         org-roam-graph-viewer "/usr/bin/brave-browser"))
 
+(setq org-roam-buffer-window-parameters '((no-delete-other-windows . t)))
+
+(use-package! org-roam-ui
+  :after org-roam
+  :hook (after-init . org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start nil))
+
 (map! :leader
       (:prefix ("n r" . "org-roam")
        :desc "Completion at point" "c" #'completion-at-point
        :desc "Find node"           "f" #'org-roam-node-find
-       :desc "Show graph"          "g" #'org-roam-graph
+       :desc "Show graph"          "g" #'org-roam-ui-open
        :desc "Insert node"         "i" #'org-roam-node-insert
        :desc "Capture to node"     "n" #'org-roam-capture
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 
 (after! org
   (setq org-agenda-files '("~/org/agenda.org")))
+
+(use-package! org-contacts
+  :after org
+  :custom
+  (org-contacts-files '("~/org/contacts.org")))
 
 (map! :leader
       (:prefix ("d" . "dired")
@@ -204,17 +221,17 @@
     (display-line-numbers-mode 1))          ;; show line numbers in cells
   ;;   (my/center-ein-notebook))               ;; center content
 
-  (add-hook 'ein:notebook-mode-hook #'my/ein-notebook-pretty)
-  )
+  (add-hook 'ein:notebook-mode-hook #'my/ein-notebook-pretty))
 
 (map! :leader
       (:prefix ("j" . "Jupyter")
        :desc "Start jupyter server" "a" #'ein:jupyter-server-start
-       :desc "Stop jupyter server" "d" #'ein:jupyter-server-stop
+       :desc "Stop jupyter server" "q" #'ein:jupyter-server-stop
        :desc "Next Cell" "n" #'ein:worksheet-goto-next-input
        :desc "Previous Cell" "p" #'ein:worksheet-goto-prev-input
        :desc "Run all" "r" #'ein:worksheet-execute-all-cells
        :desc "Clear output" "c" #'ein:worksheet-clear-output
+       :desc "Delete cell" "d" #'ein:worksheet-kill-cell
        :desc "Add cell above" "k" #'ein:worksheet-insert-cell-above
        :desc "Add cell below" "j" #'ein:worksheet-insert-cell-below))
 

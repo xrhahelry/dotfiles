@@ -41,12 +41,12 @@
 
 (set-face-attribute 'mode-line nil :font "JetBrainsMono" :height 0.9)
 (setq doom-modeline-height 35
-      doom-modeline-bar-width 5
+      doom-modeline-bar-width 1
       doom-modeline-modal nil
       doom-modeline-buffer-file-name-style 'truncate-upto-project
       doom-modeline-project-detection 'project
-      doom-modeline-persp-name t
-      doom-modeline-persp-icon t
+      ;; doom-modeline-persp-name t
+      ;; doom-modeline-persp-icon t
       doom-modeline-buffer-modification-icon t
       doom-modeline-modal-icon nil)
 

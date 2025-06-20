@@ -69,8 +69,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Basic bindings
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run -i -l 5 -fn JetBrainsMono -p Run: -nb '#282c34' -nf '#bbc2cf' -sb '#5699af'")
+    , ((modm,               xK_r     ), spawn "rofi -show drun")
     , ((modm,               xK_q     ), kill)
-    , ((modm,               xK_w     ), spawn "firefox")
+    , ((modm,               xK_w     ), spawn "flatpak run app.zen_browser.zen")
     , ((modm,               xK_n     ), spawn "obsidian")
     , ((modm,               xK_e     ), spawn "emacsclient -c")
 
@@ -99,7 +100,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Window management
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)                               -- mod + t = toggle floating/tiling
     , ((modm,               xK_Tab   ), sendMessage NextLayout)                                       -- mod + tab = cycle layouts
-    , ((modm,               xK_f     ), toggleFullscreen)                                             -- mod + f = toggle fullscreen
+    , ((0,                  xK_F11   ), toggleFullscreen)
+
     , ((modm,               xK_b     ), sendMessage ToggleStruts)
 
     -- XMonad management
@@ -136,7 +138,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 myLayout = configurableNavigation noNavigateBorders $
            avoidStruts $
            smartBorders $
-           (tiled ||| Mirror tiled ||| noBorders Full)
+           (tiled ||| noBorders Full)
   where
     tiled   = Tall nmaster delta ratio
     nmaster = 1
@@ -162,8 +164,10 @@ myStartupHook = do
     spawnOnce "xrandr --output HDMI-1-0 --mode 1600x900 --right-of eDP-1"
     spawnOnce "feh --randomize --bg-fill /home/xrhahelry/Pictures/wallpapers/*"
     spawnOnce "picom"
-    spawn "/usr/bin/emacs --daemon"
-    spawn "polybar -r main"
+    spawnOnce "/usr/bin/emacs --daemon"
+    spawnOnce "syncthing --no-browser"
+    spawnOnce "polybar -r main"
+    spawnOnce "lxpolkit &"
 
 ------------------------------------------------------------------------
 -- Main

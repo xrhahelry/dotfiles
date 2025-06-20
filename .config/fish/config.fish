@@ -2,6 +2,7 @@
 set -e fish_user_paths
 # set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.cargo/bin $HOME/anaconda3/bin $fish_user_paths
 set -U fish_user_paths $HOME/.bin $HOME/.local/bin $HOME/.cargo/bin $fish_user_paths
+set -Ux XDG_DATA_DIRS /var/lib/flatpak/exports/share /home/$USER/.local/share/flatpak/exports/share /usr/local/share /usr/share
 
 set fish_greeting
 set TERM tmux-256color
@@ -82,6 +83,7 @@ alias cc="code ."
 alias nn="nvim ."
 alias tlauncher="java -jar /opt/TLauncher.jar"
 alias doom=" ~/.config/emacs/bin/doom"
+alias note="jupyter notebook"
 
 if status is-interactive
     colorscript random
@@ -99,14 +101,16 @@ else
     end
 end
 
+conda activate main
+
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
 set -gx PATH $HOME/.cabal/bin /home/xrhahelry/.ghcup/bin $PATH # ghcup-env
 
-# if not set -q TMUX
-#     if command -v tmux > /dev/null
-#         exec tmux
-#     else
-#         echo "tmux is not installed. Please install it first."
-#     end
-# else
-# end
+if not set -q TMUX
+    if command -v tmux >/dev/null
+        exec tmux
+    else
+        echo "tmux is not installed. Please install it first."
+    end
+else
+end

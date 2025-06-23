@@ -51,6 +51,9 @@ toggleFullscreen = do
         then sendMessage $ JumpToLayout "Tall"  -- Exit fullscreen to Tall layout
         else sendMessage $ JumpToLayout "Full"  -- Enter fullscreen
 
+myScreenshotCommand :: String
+myScreenshotCommand = "filepath=~/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png && maim -s \"$filepath\" && xclip -selection clipboard -t image/png -i \"$filepath\""
+
 ------------------------------------------------------------------------
 -- Navigation Configuration
 ------------------------------------------------------------------------
@@ -69,7 +72,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Basic bindings
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_Return), spawn "dmenu_run -i -l 5 -fn JetBrainsMono -p Run: -nb '#282c34' -nf '#bbc2cf' -sb '#5699af'")
-    , ((modm,               xK_r     ), spawn "rofi -show drun")
+    , ((modm,               xK_r     ), spawn "rofi -modi drun,window -show drun")
     , ((modm,               xK_q     ), kill)
     , ((modm,               xK_w     ), spawn "flatpak run app.zen_browser.zen")
     , ((modm,               xK_n     ), spawn "obsidian")
@@ -112,6 +115,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_F9 ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")             -- mod + F9 = toggle mute
     , ((modm, xK_F10), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")              -- mod + F10 = increase volume
     , ((modm, xK_F11), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")              -- mod + F11 = decrease volume
+
+    , ((modm .|. shiftMask, xK_s), spawn "sh -c 'f=~/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png; maim -s \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"'")
     ]
     ++
     -- Workspace switching (mod + 1-9)
